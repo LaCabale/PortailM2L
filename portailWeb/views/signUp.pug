@@ -1,0 +1,18 @@
+extends layout
+
+block append body
+    .container.theme-showcase(role='main')
+
+        .jumbotron
+            form.form-horizontal(action="/users/signUp", method="post")
+                div
+                    label= "E-mail: "
+                    input(type="text", name="e-mail")
+                div
+                    label= "Username: "
+                    input(type="text", name="newUserName")
+                div
+                    label= "Password: "
+                    input(type="password", name="password")
+                div
+                    input(type="submit", value="Sign Up")

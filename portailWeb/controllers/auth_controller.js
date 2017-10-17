@@ -9,6 +9,15 @@ exports.login_authentication = function(req, res) {
     res.redirect('/');
 };
 
+// SIGNUP
+exports.signUp_form = function(req, res){
+    res.render('signUp');
+}
+
+exports.signUp_authentification = function(req, res) {
+    res.redirect('/');
+}
+
 
 //LOGOUT
 exports.logout = function(req, res){

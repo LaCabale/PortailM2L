@@ -9,6 +9,8 @@ router.get('/login',auth_controller.login_form);
 
 router.post('/login',passport.authenticate('local', { failureRedirect: '/users/login' }),auth_controller.login_authentication);
 
+router.get('/signUp',auth_controller.signUp_form);
+
 router.get('/logout',auth_controller.logout);
 
 

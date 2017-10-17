@@ -15,6 +15,15 @@ var users_model = require('./model/users');
 var index = require('./routes/index');
 var users = require('./routes/users');
 
+
+//ENREGISREMENT
+
+passport.use(new Strategy(
+    function (newUserName, password, done) {
+        users_model.registerUser
+    }
+))
+
 //AUTHENTIFICATION
 
 // Configure the local strategy for use by Passport.
