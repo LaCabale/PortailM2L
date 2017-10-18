@@ -7,12 +7,12 @@ block append body
             form.form-horizontal(action="/users/signUp", method="post")
                 div
                     label= "E-mail: "
-                    input(type="text", name="e-mail")
+                    input(type="text", id="newEmail", name="e-mail")
                 div
                     label= "Username: "
-                    input(type="text", name="newUserName")
+                    input(type="text", id="newUsername" ,name="newUserName")
                 div
                     label= "Password: "
-                    input(type="password", name="password")
+                    input(type="password", id="newPassword", name="password")
                 div
                     input(type="submit", value="Sign Up")

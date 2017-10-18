@@ -18,11 +18,6 @@ var users = require('./routes/users');
 
 //ENREGISREMENT
 
-passport.use(new Strategy(
-    function (newUserName, password, done) {
-        users_model.registerUser
-    }
-))
 
 //AUTHENTIFICATION
 

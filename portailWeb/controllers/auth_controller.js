@@ -15,6 +15,7 @@ exports.signUp_form = function(req, res){
 }
 
 exports.signUp_authentification = function(req, res) {
+    res.registerUser(document.getElementById("newUsername").value(),document.getElementById("newPassword").value(),document.getElementById("newEmail").value());
     res.redirect('/');
 }
 
