@@ -17,14 +17,14 @@
   },
   "homepage": "https://github.com/MaelleT/PortailM2L#readme",
   "dependencies": {
-    "body-parser": "^1.18.2",
     "cookie-parser": "^1.4.3",
     "express": "^4.16.2",
     "express-session": "^1.15.6",
+    "feed": "^1.1.0",
     "morgan": "^1.9.0",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
-    "path": "^0.12.7",
+    "password": "^0.1.1",
     "pug": "^2.0.0-rc.4",
     "pug-bootstrap": "0.0.15",
     "serve-favicon": "^2.4.5"

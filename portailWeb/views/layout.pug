@@ -46,6 +46,9 @@ block body
                 ul.nav.navbar-nav.navbar-right
                     li
                         if (!user)
-                            a(href="/users/login") Login
+                           li
+                               a(href="/users/login") Login
+                           li
+                               a(href="/users/signUp") SignUp
                         else
                             a(href="/users/logout") Logout
