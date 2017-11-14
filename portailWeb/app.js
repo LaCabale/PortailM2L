@@ -16,8 +16,6 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 
 
-//ENREGISREMENT
-
 
 //AUTHENTIFICATION
 
@@ -33,7 +31,7 @@ passport.use(new Strategy(
     users_model.findByUsername(username ,
         function(err, user) {
             if (err) { return done(err); }
-
+            console.log('logIn');
             if (!user) {
                 return done(null, false, { message: 'Incorrect username.' });
             }
