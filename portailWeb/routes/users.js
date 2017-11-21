@@ -11,7 +11,7 @@ router.post('/login',passport.authenticate('local', { failureRedirect: '/users/l
 
 router.get('/signUp',auth_controller.signUp_form);
 
-router.post('/signUp',passport.authenticate('local', { failureRedirect: '/users/signUp' }),auth_controller.signUp_authentification);
+router.post('/signUp',auth_controller.signUp_authentification);
 
 router.get('/logout',auth_controller.logout);
 

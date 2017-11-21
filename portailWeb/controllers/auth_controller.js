@@ -1,4 +1,4 @@
-
+var users_model = require('../model/users');
 
 // LOGIN
 exports.login_form = function(req, res) { // attention à la route / depuis le /login
@@ -15,8 +15,15 @@ exports.signUp_form = function(req, res){
 }
 
 exports.signUp_authentification = function(req, res) {
-    res.registerUser(document.getElementById("newUsername").value(),document.getElementById("newPassword").value(),document.getElementById("newEmail").value());
-    res.redirect('/');
+    console.log(req.body.newUserName);
+    users_model.registerUser(req.body.newUsername,req.body.Password,req.body.eMail,function(bool){
+        if(bool == true){
+        res.redirect('/');
+        }
+        else{
+            res.redirect('/users/signUp');
+        }
+    });
 }
 
 
