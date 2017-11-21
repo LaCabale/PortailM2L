@@ -1,4 +1,9 @@
-var express = require('express');
+//FRAIS
+exports.frais = function(req, res){
+    res.render('frais');
+};
+
+//VERIFICATION
 
 exports.verification = function(req, res)
 {
@@ -12,4 +17,14 @@ exports.verification = function(req, res)
         cout = kiloM * 0.332;
     res.render('verification', {motif : req.body.motif, villeD : req.body.villeD,
         villeA: req.body.villeA, kiloM : req.body.parcourus, cout : cout});
+}
+
+//FRAIS ANNEXE
+exports.fraisAnnexes = function(req, res){
+    res.render('fraisAnnexes');
+};
+
+exports.fraisIndex = function(req, res)
+{
+    res.redirect('/');
 }

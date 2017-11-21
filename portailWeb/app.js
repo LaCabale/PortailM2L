@@ -14,7 +14,7 @@ var users_model = require('./model/users');
 //ROUTES
 var index = require('./routes/index');
 var users = require('./routes/users');
-
+var frais = require('./routes/frais');
 
 
 //AUTHENTIFICATION
@@ -94,6 +94,8 @@ app.use(passport.session());
 // ROUTES
 app.use('/', index);
 app.use('/users', users);
+app.use('/frais', frais);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
