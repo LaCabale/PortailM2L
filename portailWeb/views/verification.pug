@@ -1,0 +1,10 @@
+extends layout
+block content
+    h1 Vérifiez vos informations :
+        p Motif du trajet : #{motif}
+        p Trajet : #{villeA} à #{villeD}
+        p Kilométrage : #{kiloM}
+        p Le cout est estimé à : #{cout}
+
+        a(href="/frais/", type="button")
+        input(type="submit", value="Valider")
