@@ -7,7 +7,7 @@ router.get('/',frais_controller.frais);
 
 router.post('/verification',frais_controller.verification);
 
-router.get('/fraisAnnexes',frais_controller.fraisAnnexes);
+router.post('/fraisAnnexes',frais_controller.fraisAnnexes);
 
 router.post('/', frais_controller.fraisIndex);
 
