@@ -1,15 +1,20 @@
 class Deplacement
 {
-    constructor(dateDeplacement, nomDeclarant, adresseDeclarant, leTrajet, leMotif, lesAdh, lesFrais)
+    constructor(dateDeplacement, nomDeclarant, adresseDeclarant, villeD, villeA, leMotif, lesAdh, lesFrais, unCout, uneDistance)
     {
         this._dateDeplacement = dateDeplacement;
         this._nomDeclarant = nomDeclarant;
         this._adresseDeclarant = adresseDeclarant;
-        this._leTrajet = leTrajet;
+        this._villeA = villeA;
+        this._villeD = villeD;
         this._leMotif = leMotif;
         this._lesAdh = lesAdh;
         this._lesFrais = lesFrais;
+        this._cout = unCout;
+        this._kiloM = uneDistance;
     }
+
+    //GETTERS-----------------------------------------------------
 
     get dateDeplacement()
     {
@@ -26,14 +31,19 @@ class Deplacement
         return this._adresseDeclarant;
     }
 
+    get villeA()
+    {
+        return this._villeA;
+    }
+
+    get villeD()
+    {
+        return this._villeD;
+    }
+
     get leMotif()
     {
         return this._leMotif;
-    }
-
-    get leTrajet()
-    {
-        return this._leTrajet
     }
 
     get lesAdh()
@@ -45,6 +55,18 @@ class Deplacement
     {
         return this._lesFrais;
     }
+
+    get cout()
+    {
+        return this._cout;
+    }
+
+    get kiloM()
+    {
+        return this._kiloM;
+    }
+
+    //SETTERS-------------------------------------------------------------
 
     set dateDeplacement(uneDate)
     {
@@ -61,17 +83,22 @@ class Deplacement
         this._adresseDeclarant = uneAdresse;
     }
 
-    set leTrajet(unTrajet)
+    set villeA(uneVille)
     {
-        this._leTrajet = unTrajet;
+        this._villeA = uneVille;
     }
 
-    set leTrajet(unMotif)
+    set villeD(uneVille)
+    {
+        this._villeD = uneVille;
+    }
+
+    set leMotif(unMotif)
     {
         this._leMotif = unMotif;
     }
 
-    set leTrajet(desAdh)
+    set lesAdh(desAdh)
     {
         this._lesAdh = desAdh;
     }
@@ -79,6 +106,16 @@ class Deplacement
     set lesFrais(desFrais)
     {
         this._lesFrais = desFrais;
+    }
+
+    set cout(unCout)
+{
+    this._cout = unCout;
+}
+
+    set kiloM(uneDistance)
+    {
+        this._kiloM =  uneDistance;
     }
 }
 
