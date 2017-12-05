@@ -1,10 +1,18 @@
 class Adherent
 {
-    lesAdherents = [];
 
-    constructor()
+    constructor(unUsername, unPassword)
     {
-        lesAdherents.add(this);
+     this._username = unUsername;
+     this._password = unPassword;
+    }
+
+    get username() {
+        return this._username;
+    }
+
+    get password() {
+        return this._password;
     }
 
 }

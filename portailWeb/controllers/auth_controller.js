@@ -15,8 +15,8 @@ exports.signUp_form = function(req, res){
 }
 
 exports.signUp_authentification = function(req, res) {
-    console.log(req.body.newUserName);
-    users_model.registerUser(req.body.newUsername,req.body.Password,req.body.eMail,function(bool){
+    console.log(req.body.newUsername);
+    users_model.registerUser((req.body.nom),(req.body.prenom),(req.body.adresse),(req.body.eMail),(req.body.telephone),(req.body.newUsername), (req.body.Password),function(bool){
         if(bool == true){
         res.redirect('/');
         }
