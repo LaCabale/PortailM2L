@@ -30,3 +30,8 @@ exports.fraisIndex = function(req, res)
 {
     res.redirect('/');
 }
+
+//Récup des déplacements enregistrés dans la BDD
+exports.task_list = function(req, res,next){
+
+}
