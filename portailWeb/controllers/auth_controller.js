@@ -39,6 +39,5 @@ exports.signUp_authentification = function(req, res) {
 
 //LOGOUT
 exports.logout = function(req, res){
-     req.logout();
-     res.redirect('/');
+     res.render('index', {username : null});
  };
