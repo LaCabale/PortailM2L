@@ -1,8 +1,3 @@
-var records = [
-    { id: 1, username: 'jack', password: 'secret', eMail: 'jack@test.fr'}
-  , { id: 2, username: 'jill', password: 'birthday', eMail: 'jill@chill.com'}
-];
-
 const adherentDAO = require('../DAO/adherentDAO');
 const AdherentDAO = new adherentDAO();
 const Adherent = require('../metier/Adherent');
@@ -24,16 +19,11 @@ exports.findById = function(id,callback) {
 exports.findByUsername = function(username, user) {
     AdherentDAO.getListAdherents(function (listAdherents){
         if(listAdherents != null) {
-            if(user != null) {
                 listAdherents.forEach(function (mec) {
                     if (mec.username === username) {
                         user(mec);
                     }
-                    else {
-                        user(null);
-                    }
                 });
-            }
         } else {
             user(null);
         }
