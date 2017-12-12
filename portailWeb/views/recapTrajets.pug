@@ -1,0 +1,9 @@
+extends layout
+
+block append body
+    p liste des deplacements
+    ul
+        each user in users
+            li=user.username
+            li=user.eMail
+            br
