@@ -21,40 +21,29 @@ exports.findById = function(id,callback) {
  };
 
 // Research function by Username
-exports.findByUsername = function(username, callback) {
-    console.log(AdherentDAO.getListAdherents()+'1');
-    var listAdherents = AdherentDAO.getListAdherents();
-    var find = false;
-    console.log(listAdherents);
-    for (var i = 0, len = listAdherents.length; i < len; i++) {
-        console.log('la');
-      var record = listAdherents[i];
-        console.log('inside find username '+ listAdherents.length);
-        if (record.username === username) {
-          find=true;
-          return callback(null, record.password);
-      }
-    }
-
-    if (!(find)) {
-        return callback(null, null);
-    }
+exports.findByUsername = function(username, user) {
+    AdherentDAO.getListAdherents(function (listAdherents){
+        if(listAdherents != null) {
+            if(user != null) {
+                listAdherents.forEach(function (mec) {
+                    if (mec.username === username) {
+                        user(mec);
+                    }
+                    else {
+                        user(null);
+                    }
+                });
+            }
+        } else {
+            user(null);
+        }
+    });
 };
 
 exports.registerUser = function (nom, prenom, adresse,  eMail, telephone, username, passeword, callback) {
-    console.log('registerUser 1');
-    this.findByUsername(username,
-        function (err, user) {
-            console.log('registerUser');
-            if (err) {
-                return callback(false);
-            }
-            console.log('logIn');
-            if (!user) {
-                /*var id = records.length + 1;
-                records.push({id: id, username: username, password: passeword, eMail: eMail});*/
+    this.findByUsername(username, function (user) {
+            if (user == null) {
                 AdherentDAO.setNewAdherent(nom,prenom,adresse,eMail,telephone,username,passeword);
-                console.log('regiserUser3')
                 return callback(true);
             }
             else {

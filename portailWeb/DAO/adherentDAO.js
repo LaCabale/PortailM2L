@@ -6,7 +6,6 @@ class adherentDAO{
 
 
     constructor(){
-        console.log('DEDANT');
         this._client = new Client({
             connectionString : 'postgres://groupe3:groupe3@192.168.222.86:5432/M2L'
         });
@@ -16,7 +15,7 @@ class adherentDAO{
         });
     }
 
-    getListAdherents(){
+    getListAdherents(cb){
         const query = {
             name: 'get-all-adherents',
             text: 'SELECT username,password FROM adherent ;'
@@ -33,7 +32,7 @@ class adherentDAO{
                     lesAdherents.push(unAdherent);
                     console.log(lesAdherents);
                 });
-                return (lesAdherents);
+                cb(lesAdherents);
             }
         });
     };
