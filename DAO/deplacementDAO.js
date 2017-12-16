@@ -29,9 +29,7 @@ class deplacementDAO {
 
                     unDeplacement = new Deplacement(row['datedeplacement'], row['villed'], row['villea'], row['coutdeplacement']);
                     lesDeplacements.push(unDeplacement);
-                    console.log('mdr');
                 });
-                console.log('je me tue');
                 displaycb(lesDeplacements);
             }
         });
