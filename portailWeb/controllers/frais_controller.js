@@ -1,10 +1,3 @@
-var deplacement = require('../metier/Deplacement')
-var villeA;
-var villeD;
-var kiloM;
-var motif;
-var cout;
-
 //FRAIS
 exports.frais = function(req, res){
     res.render('frais');
@@ -14,28 +7,31 @@ exports.frais = function(req, res){
 
 exports.verification = function(req, res)
 {
-    kiloM = req.body.parcourus;
-    villeA = req.body.villeA;
-    villeD = req.body.villeD;
-    motif = req.body.motif;
-
+    let cout;
+    let kiloM = req.body.parcourus;
     if (kiloM <= 5000)
         cout = kiloM * 0.493;
     else if (kiloM > 5000 && kiloM <= 20000)
         cout = kiloM * 0.277 + 1082;
     else
         cout = kiloM * 0.332;
-    res.render('verification', {motif : motif, villeD : villeD,
-        villeA: villeA, kiloM : kiloM, cout : cout});
-}
+    res.render('verification', {motif : req.body.motif, villeD : req.body.villeD,
+        villeA: req.body.villeA, kiloM : req.body.parcourus, cout : cout});
+};
 
-//FRAIS ANNEXE
+//FRAIS ANNEXES
 exports.fraisAnnexes = function(req, res){
-    res.render('fraisAnnexes' {motif : motif, villeD : villeD,
-        villeA: villeA, kiloM : kiloM, cout : cout});
+
+    res.render('fraisAnnexes', {M : req.body.M, vD : req.body.vD, vA : req.body.vA,
+        kl: req.body.kl, c: req.body.c});
 };
 
 exports.fraisIndex = function(req, res)
 {
     res.redirect('/');
+}
+
+//Récup des déplacements enregistrés dans la BDD
+exports.task_list = function(req, res,next){
+
 }

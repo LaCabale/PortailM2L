@@ -9,14 +9,20 @@ block append body
 
 
         .lead
-            h1 Vérifiez vos informations :
-            p Motif du trajet : #{motif}
-            p Trajet : #{villeA} à #{villeD}
-            p Kilométrage : #{kiloM}
-            p Le cout est estimé à : #{cout}
+            form.form-horizontal(action="/frais/fraisAnnexes", method="post")
+                h1 Vérifiez vos informations :
+                p Motif du trajet : #{motif}
+                p Trajet : #{villeD} à #{villeA}
+                p Kilométrage : #{kiloM}
+                p Le coût est estimé à : #{cout}
 
-            a(href="/frais/fraisAnnexes", type="button")
-               input(type="submit", value="Valider")
+                input(hidden type = text, name = "M", value = motif)
+                input(hidden type = text, name = "vD", value = villeD)
+                input(hidden type = text, name = "vA", value = villeA)
+                input(hidden type = number, name = "kl", value = kiloM)
+                input(hidden type = number, name = "c", value = cout)
+
+                input(type="submit", value="Valider")
 
             a(href="/frais/", type="button")
-               input(type="submit", value="Retour")
+                input(type="submit", value="Retour")

@@ -10,6 +10,13 @@ block append body
 
         .lead
         form.form-horizontal(action="/frais", method="post")
+            h4 Vos informations :
+            p Motif du trajet : #{M}
+            p Trajet : #{vD} à #{vA}
+            p Kilométrage : #{kl}
+            p Le cout est estimé à : #{c}
+
+            h4 Frais supplémentaires :
             div
                 label Montant Total Péage:
                 input(type="number", name="montantPéage", value="0", min="0")
@@ -21,3 +28,6 @@ block append body
                 input(type="number", name="montantHébergement", value="0", min="0")
             div
                 input(type="submit", value="Valider")
+
+
+

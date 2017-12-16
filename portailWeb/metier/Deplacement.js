@@ -1,17 +1,17 @@
 class Deplacement
 {
-    constructor(dateDeplacement, nomDeclarant, adresseDeclarant, villeD, villeA, leMotif, lesAdh, lesFrais, unCout, uneDistance)
+    constructor(dateDeplacement, villeD, villeA, unCout)
     {
         this._dateDeplacement = dateDeplacement;
-        this._nomDeclarant = nomDeclarant;
-        this._adresseDeclarant = adresseDeclarant;
+        //this._nomDeclarant = nomDeclarant;
+        //this._adresseDeclarant = adresseDeclarant;
         this._villeA = villeA;
         this._villeD = villeD;
-        this._leMotif = leMotif;
-        this._lesAdh = lesAdh;
-        this._lesFrais = lesFrais;
+        //this._leMotif = leMotif;
+        //this._lesAdh = lesAdh;
+        //this._lesFrais = lesFrais;
         this._cout = unCout;
-        this._kiloM = uneDistance;
+        //this._kiloM = uneDistance;
     }
 
     //GETTERS-----------------------------------------------------
@@ -109,9 +109,9 @@ class Deplacement
     }
 
     set cout(unCout)
-{
-    this._cout = unCout;
-}
+    {
+        this._cout = unCout;
+    }
 
     set kiloM(uneDistance)
     {
