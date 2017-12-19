@@ -1,4 +1,4 @@
-const DeplacementDAO = require('../../DAO/deplacementDAO');
+const DeplacementDAO = require('../DAO/deplacementDAO');
 const deplacementDAO = new DeplacementDAO();
 
 

@@ -1,8 +1,9 @@
 class Adherent
 {
 
-    constructor(unUsername, unPassword)
+    constructor(unId, unUsername, unPassword)
     {
+     this._id = unId;
      this._username = unUsername;
      this._password = unPassword;
     }
@@ -13,6 +14,10 @@ class Adherent
 
     get password() {
         return this._password;
+    }
+
+    get id() {
+        return this._id;
     }
 
 }

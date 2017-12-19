@@ -4,28 +4,35 @@ const Adherent = require('../metier/Adherent');
 
 // Research function by id
 exports.findById = function(id,callback) {
-    find = false;
-    records.forEach(function(record) {
-        if (record.id == id) {
-            find = true;
-            return callback(null, record);
+    AdherentDAO.getListAdherents(function (listAdherents){
+        if(listAdherents != null) {
+            listAdherents.forEach(function (user) {
+                if (user.id === id) {
+                    callback(null, user);
+                }
+            });
+        } else {
+            callback(null, null);
         }
     });
-    if (!(find)){
-        return callback(new Error('User ' + id + ' does not exist'))}
  };
 
 // Research function by Username
 exports.findByUsername = function(username, user) {
     AdherentDAO.getListAdherents(function (listAdherents){
+        find = false;
         if(listAdherents != null) {
-                listAdherents.forEach(function (mec) {
-                    if (mec.username === username) {
-                        user(mec);
+                listAdherents.forEach(function (adherent) {
+                    if (adherent.username === username) {
+                        find= true;
+                        user(null, adherent);
                     }
                 });
+                if (find == false){
+                    user(null,null);
+                }
         } else {
-            user(null);
+            user(null, null);
         }
     });
 };

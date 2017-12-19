@@ -6,18 +6,7 @@ exports.login_form = function(req, res) { // attention à la route / depuis le /
  };
 
 exports.login_authentication = function(req, res) {
-    users_model.findByUsername(req.body.username, function(user) {
-        if(user != null) {
-                if (user.password === req.body.password) {
-                    res.render('index', {username: req.body.username});
-                }
-                else {
-                    res.redirect('/users/login');
-                }
-        } else {
-            res.redirect('/users/login');
-        }
-    });
+    res.redirect('/');
 };
 
 // SIGNUP
@@ -39,5 +28,6 @@ exports.signUp_authentification = function(req, res) {
 
 //LOGOUT
 exports.logout = function(req, res){
-     res.render('index', {username : null});
+    req.logout();
+    res.redirect('/');
  };

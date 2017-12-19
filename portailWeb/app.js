@@ -5,7 +5,11 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session'); //library to manage sessions.
+var passport = require('passport');
+var Strategy = require('passport-local').Strategy;
+var session = require('express-session'); //library to manage sessions.
 
+var users_model = require('./model/users');
 
 //ROUTES
 var index = require('./routes/index');
@@ -21,6 +25,24 @@ var frais = require('./routes/frais');
 // (`username` and `password`) submitted by the user.  The function must verify
 // that the password is correct and then invoke `done` with a user object, which
 
+passport.use(new Strategy(
+    function(username, password, done) {
+        users_model.findByUsername(username ,
+            function(err, user) {
+                if (err) { return done(err); }
+
+                if (!user) {
+                    return done(null, false, { message: 'Incorrect username.' });
+                }
+
+                if (user.password !== password) {
+                    return done(null, false, { message: 'Incorrect password.' });
+                }
+                return done(null, user);
+            }
+        );
+    }
+));
 
 // Configure Passport authenticated session persistence.
 //
@@ -29,6 +51,24 @@ var frais = require('./routes/frais');
 // typical implementation of this is as simple as supplying the user ID when
 // serializing, and querying the user record by ID from the database when
 // deserializing.
+
+passport.serializeUser(
+    function(user, callback) {
+        callback(null, user.id);
+    }
+);
+passport.deserializeUser(
+    function(id, callback) {
+        users_model.findById(id,
+            function (err, user) {
+                if (err) {
+                    return callback(err);
+                }
+                callback(null, user);
+            }
+        );
+    }
+);
 
 var app = express();
 
@@ -46,6 +86,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
 // secret : key used to encrypted the cookie
 
+// Initialize Passport and restore authentication state, if any, from the
+// session.
+app.use(passport.initialize());
+app.use(passport.session());
 
 // ROUTES
 app.use('/', index);
