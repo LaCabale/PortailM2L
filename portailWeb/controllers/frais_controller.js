@@ -26,13 +26,17 @@ const frais_DAO = new Frais_DAO();
 
 //FRAIS ANNEXE
     exports.fraisAnnexes = function (req, res) {
-        res.render('fraisAnnexes', {M : req.body.M, vD : req.body.vD, vA : req.body.vA,
-        kl: req.body.kl, c: req.body.c, date : req.body.date});
+        res.render('fraisAnnexes', {motif : req.body.motif, villeD : req.body.villeD, villeA : req.body.villeA,
+        kiloM: req.body.kiloM, cout: req.body.cout, date : req.body.date});
     };
 
     exports.fraisIndex = function (req, res) {
-        frais_DAO.addNewDeplacements(req.body.M, req.user.id, req.body.date, req.body.vD,
-            (req.body.vA), (req.body.c), req.body.montantHebergement, req.body.montantRepas,
-            req.body.montantHebergement, (req.body.kl));
-        res.redirect('/');
+        frais_DAO.getVilles(req.body.villeD, req.body.villeA, function(lesVilles)
+        {
+            frais_DAO.addNewDeplacements(req.body.motif, req.user.id, req.body.date, lesVilles[0],
+                lesVilles[1], req.body.cout, req.body.montantHebergement, req.body.montantRepas,
+                req.body.montantHebergement, (req.body.kiloM));
+            res.redirect('/')
+        });
+        ;
     };

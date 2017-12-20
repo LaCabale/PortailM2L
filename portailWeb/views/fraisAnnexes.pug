@@ -12,11 +12,13 @@ block append body
         form.form-horizontal(action="/frais/", method="post")
 
             div
-                input(hidden type = text, name = "M", value = motif)
-                input(hidden type = text, name = "vD", value = villeD)
-                input(hidden type = text, name = "vA", value = villeA)
-                input(hidden type = number, name = "kl", value = kiloM)
-                input(hidden type = number, name = "c", value = cout)
+                input(hidden type = text, name = "motif", value = motif)
+            div
+                input(hidden type = text, name = "villeD", value = villeD)
+            div
+                input(hidden type = text, name = "villeA", value = villeA)
+                input(hidden type = number, name = "kiloM", value = kiloM)
+                input(hidden type = number, name = "cout", value = cout)
                 input(hidden type = date, name = "date", value = date)
 
             div

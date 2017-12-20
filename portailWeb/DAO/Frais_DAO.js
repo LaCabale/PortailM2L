@@ -10,37 +10,38 @@ class Frais_DAO {
         });
 
     }
-    addNewDeplacements(motif, idAdherent, date, villeD, villeA, cout, fraisHebergement,
-                       fraisRepas, fraisPeage, kilomP)
+
+    getVilles(villeD, villeA, callback)
     {
-        console.log('il l a trouvé');
-        let query = {text : "select idville from villefrance where idville =" + villeD + ";"};
+        let query = {text : "select idville from ville where nom = '" + villeD +
+        "' or nom = '" + villeA+"'"};
 
         this._client.query(query, function(err, result)
         {
-           if(err)
-           {
-               console.log(err.stack);
-           }
-           else
-               villeD = result.rows[0]['idville'];
-        });
-
-         query = {text : "select idville from villefrance where idville =" + villeA + ";"};
-
-        this._client.query(query, function(err, result)
-        {
-            if(err)
+            if (err)
             {
                 console.log(err.stack);
             }
             else
-                villeA = result.rows[0]['idville'];
+            {
+                let lesVilles = [];
+                result.rows.forEach(function(row)
+                {
+                    console.log(row);
+                    lesVilles.push(row['idville']);
+                });
+                callback(lesVilles);
+            }
         });
+    }
 
-        query = {
+    addNewDeplacements(motif, idAdherent, date, villeD, villeA, cout, fraisHebergement,
+                       fraisRepas, fraisPeage, kilomP)
+    {
+
+        let query = {
             name: 'add-new-deplacement',
-            text: "select addnewdeplacement ('"+date+"', "+cout+", "+idAdherent+ ", "+fraisRepas+", "+fraisHebergement+","+fraisPeage+", '"+motif+"', "+villeD+","+villeA+","+kilomP+");"
+            text: "select addNewDeplacement ('"+date+"', "+cout+", "+idAdherent+ ", "+fraisRepas+", "+fraisHebergement+","+fraisPeage+", '"+motif+"', "+villeD+","+villeA+","+kilomP+");"
         };
 
         this._client.query(query, function(err){
