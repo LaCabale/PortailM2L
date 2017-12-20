@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
-
-var deplacement_controller = require('../controllers/deplacement_controller');
+var html_controller = require('../controllers/html_controller');
 
 /* GET home page. */
 router.get('/',
@@ -13,7 +12,19 @@ router.get('/',
     }
 );
 
-router.get('/deplacements', deplacement_controller.deplacements);
+router.get('/hauts_faits', html_controller.hauts_faits);
+
+router.get('/hauts_faits/j_o_p',html_controller.j_o_p);
+
+router.get('/hauts_faits/articles',html_controller.articles);
+
+router.get('/hauts_faits/statistiques',html_controller.statistiques);
+
+router.get('/informations',html_controller.informations);
+
+router.get('/informations/presentation',html_controller.presentation);
+
+router.get('/informations/annuaire',html_controller.annuaire);
 
 
 
