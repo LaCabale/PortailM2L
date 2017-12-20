@@ -1,8 +1,6 @@
-var records = [
-    { id: 1, username: 'jack', password: 'secret', eMail: 'jack@test.fr'}
-  , { id: 2, username: 'jill', password: 'birthday', eMail: 'jill@chill.com'}
-];
-
+const adherentDAO = require('../DAO/adherentDAO');
+const AdherentDAO = new adherentDAO();
+const Adherent = require('../metier/Adherent');
 
 // Research function by id
 exports.findById = function(id,callback) {
@@ -18,32 +16,24 @@ exports.findById = function(id,callback) {
  };
 
 // Research function by Username
-exports.findByUsername = function(username, callback) {
-    var find = false;
-    for (var i = 0, len = records.length; i < len; i++) {
-      var record = records[i];
-        console.log('inside find username '+ records.length);
-        if (record.username === username) {
-          find=true;
-          return callback(null, record);
-      }
-    }
-
-    if (!(find)) {
-        return callback(null, null);
-    }
+exports.findByUsername = function(username, user) {
+    AdherentDAO.getListAdherents(function (listAdherents){
+        if(listAdherents != null) {
+                listAdherents.forEach(function (mec) {
+                    if (mec.username === username) {
+                        user(mec);
+                    }
+                });
+        } else {
+            user(null);
+        }
+    });
 };
 
-exports.registerUser = function (username, passeword, eMail, callback) {
-    this.findByUsername(username,
-        function (err, user) {
-            if (err) {
-                return callback(false);
-            }
-            console.log('logIn');
-            if (!user) {
-                var id = records.length + 1;
-                records.push({id: id, username: username, password: passeword, eMail: eMail});
+exports.registerUser = function (nom, prenom, adresse,  eMail, telephone, username, passeword, callback) {
+    this.findByUsername(username, function (user) {
+            if (user == null) {
+                AdherentDAO.setNewAdherent(nom,prenom,adresse,eMail,telephone,username,passeword);
                 return callback(true);
             }
             else {
