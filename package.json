@@ -18,6 +18,7 @@
   "homepage": "https://github.com/MaelleT/PortailM2L#readme",
   "dependencies": {
     "cookie-parser": "^1.4.3",
+    "done": "0.0.1",
     "express": "^4.16.2",
     "express-session": "^1.15.6",
     "feed": "^1.1.0",
@@ -28,5 +29,9 @@
     "pug": "^2.0.0-rc.4",
     "pug-bootstrap": "0.0.15",
     "serve-favicon": "^2.4.5"
+  },
+  "devDependencies": {
+    "mocha": "^4.0.1",
+    "pg": "^7.4.0"
   }
 }

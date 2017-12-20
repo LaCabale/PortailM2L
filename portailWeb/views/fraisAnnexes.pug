@@ -9,15 +9,24 @@ block append body
 
 
         .lead
-        form.form-horizontal(action="/frais", method="post")
+        form.form-horizontal(action="/frais/", method="post")
+
+            div
+                input(hidden type = text, name = "M", value = motif)
+                input(hidden type = text, name = "vD", value = villeD)
+                input(hidden type = text, name = "vA", value = villeA)
+                input(hidden type = number, name = "kl", value = kiloM)
+                input(hidden type = number, name = "c", value = cout)
+                input(hidden type = date, name = "date", value = date)
+
             div
                 label Montant Total Péage:
-                input(type="number", name="montantPéage", value="0", min="0")
+                input(type="number", name="montantPeage", value=0, min="0")
             div
                 label Montant Total Repas:
-                input(type="number", name="montantRepas", value="0", min="0")
+                input(type="number", name="montantRepas", value=0, min="0")
             div
                 label Montant Total Hébergement:
-                input(type="number", name="montantHébergement", value="0", min="0")
+                input(type="number", name="montantHebergement", value=0, min="0")
             div
                 input(type="submit", value="Valider")
