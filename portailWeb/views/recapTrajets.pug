@@ -4,7 +4,11 @@ block append body
     p liste des deplacements
     ul
         each deplacement in lesDeplacements
-            li=deplacement.villeA
-            li=deplacement.villeD
-            li=deplacement.cout
+            li='motif : ' + deplacement.motif
+            li=deplacement.dateDeplacement
+            li='De ' + deplacement.villeA + ' à ' + deplacement.villeD
+            li='Cout du trajet : ' + deplacement.cout + '€'
+            li="Frais d'hébergement : " + deplacement.fraisHebergement
+            li="Frais de repas : " + deplacement.fraisRepas
+            li="Frais de péage : " + deplacement.fraisPeage
             br

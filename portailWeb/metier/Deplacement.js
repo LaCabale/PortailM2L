@@ -1,34 +1,54 @@
 class Deplacement
 {
-    constructor(dateDeplacement, villeD, villeA, unCout)
+    constructor(idAdherent, motif, dateDeplacement, villeD, villeA, unCout, kiloM, fraisHebergement, fraisRepas, fraisPeage)
     {
+        this._idAdherent = idAdherent;
         this._dateDeplacement = dateDeplacement;
-        //this._nomDeclarant = nomDeclarant;
-        //this._adresseDeclarant = adresseDeclarant;
+        this._motif = motif;
         this._villeA = villeA;
         this._villeD = villeD;
-        //this._leMotif = leMotif;
-        //this._lesAdh = lesAdh;
-        //this._lesFrais = lesFrais;
         this._cout = unCout;
-        //this._kiloM = uneDistance;
+        this._kiloM = kiloM;
+        this._fraisHebergement = fraisHebergement;
+        this._fraisRepas = fraisRepas;
+        this._fraisPeage = fraisPeage;
     }
 
     //GETTERS-----------------------------------------------------
 
+    get idAdherent()
+    {
+        return this._idAdherent;
+    }
+
+    get motif()
+    {
+        return this._motif;
+    }
+
+    get fraisHebergement()
+    {
+        return this._fraisHebergement;
+    }
+
+    get fraisRepas()
+    {
+        return this._fraisRepas;
+    }
+
+    get fraisPeage()
+    {
+        return this._fraisPeage;
+    }
+
+    get kiloM()
+    {
+        return this._kiloM;
+    }
+
     get dateDeplacement()
     {
         return this._dateDeplacement;
-    }
-
-    get nomDeclarant()
-    {
-        return this._nomDeclarant;
-    }
-
-    get adresseDeclarant()
-    {
-        return this._adresseDeclarant;
     }
 
     get villeA()
@@ -39,21 +59,6 @@ class Deplacement
     get villeD()
     {
         return this._villeD;
-    }
-
-    get leMotif()
-    {
-        return this._leMotif;
-    }
-
-    get lesAdh()
-    {
-        return this._lesAdh;
-    }
-
-    get lesFrais()
-    {
-        return this._lesFrais;
     }
 
     get cout()
@@ -68,19 +73,14 @@ class Deplacement
 
     //SETTERS-------------------------------------------------------------
 
+    set idAdherent(idAdherent)
+    {
+        this._idAdherent = idAdherent;
+    }
+
     set dateDeplacement(uneDate)
     {
         this._dateDeplacement = uneDate;
-    }
-
-    set nomDeclarant(unNom)
-    {
-        this._nomDeclarant = unNom;
-    }
-
-    set adresseDeclarant(uneAdresse)
-    {
-        this._adresseDeclarant = uneAdresse;
     }
 
     set villeA(uneVille)
@@ -93,19 +93,9 @@ class Deplacement
         this._villeD = uneVille;
     }
 
-    set leMotif(unMotif)
+    set motif(unMotif)
     {
-        this._leMotif = unMotif;
-    }
-
-    set lesAdh(desAdh)
-    {
-        this._lesAdh = desAdh;
-    }
-
-    set lesFrais(desFrais)
-    {
-        this._lesFrais = desFrais;
+        this._motif = unMotif;
     }
 
     set cout(unCout)
@@ -117,6 +107,22 @@ class Deplacement
     {
         this._kiloM =  uneDistance;
     }
+
+    set fraisHebergement(fraisHebergement)
+    {
+        this._fraisHebergement = fraisHebergement;
+    }
+
+    set fraisRepas(fraisRepas)
+    {
+        this._fraisRepas = fraisRepas;
+    }
+
+    set fraisPeage(fraisPeage)
+    {
+        this._fraisPeage = fraisPeage;
+    }
+
 }
 
 module.exports = Deplacement;

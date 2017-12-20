@@ -1,5 +1,5 @@
 const { Client } = require('pg');
-const Deplacement = require('../portailWeb/metier/Deplacement');
+const Deplacement = require('../metier/Deplacement');
 
 class deplacementDAO {
 
