@@ -7,7 +7,7 @@ class adherentDAO{
 
     constructor(){
         this._client = new Client({
-            connectionString : 'postgres://postgres:root@localhost:5433/M2L'
+            connectionString : 'postgres://groupe3:groupe3@192.168.222.86:5432/M2L'
         });
 
         this._client.connect(function (err) {

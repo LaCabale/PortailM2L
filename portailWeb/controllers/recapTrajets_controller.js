@@ -3,15 +3,14 @@ var deplacementDAO = new DeplacementDAO();
 
 exports.afficheRecap = function(req,res){
 
-    /*if (!req.user) {
+    if (!req.user) {
         res.redirect('/users/login');
-    }*/
-    console.log(req.isAuthenticated());
-    console.log(req.user);
-    deplacementDAO.recupDeplacements(
-        function(lesDeplacements){
-
-            res.render('recapTrajets',{lesDeplacements: lesDeplacements})
-        }
-    );
+    }
+    else {
+        deplacementDAO.recupDeplacements(req.user.id,
+            function (lesDeplacements) {
+                res.render('recapTrajets', {lesDeplacements: lesDeplacements})
+            }
+        );
+    }
 };
