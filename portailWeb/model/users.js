@@ -1,8 +1,7 @@
 const adherentDAO = require('../DAO/adherentDAO');
 const AdherentDAO = new adherentDAO();
-const Adherent = require('../metier/Adherent');
 
-// Research function by id
+// Recherche un Adherent dans la base de donnée à partir de son Id
 exports.findById = function(id,callback) {
     AdherentDAO.getListAdherents(function (listAdherents){
         if(listAdherents != null) {
@@ -17,7 +16,7 @@ exports.findById = function(id,callback) {
     });
  };
 
-// Research function by Username
+//Recherche un Adherent dans la base de donnée à partir de son Username
 exports.findByUsername = function(username, user) {
     AdherentDAO.getListAdherents(function (listAdherents){
         find = false;
@@ -28,7 +27,7 @@ exports.findByUsername = function(username, user) {
                         user(null, adherent);
                     }
                 });
-                if (find == false){
+                if (!find){
                     user(null,null);
                 }
         } else {
@@ -37,6 +36,7 @@ exports.findByUsername = function(username, user) {
     });
 };
 
+//Permet l'enregistrement d'un nouvel Adherent dans la base de donnée
 exports.registerUser = function (nom, prenom, adresse,  eMail, telephone, username, passeword, callback) {
     this.findByUsername(username, function (user) {
             if (user == null) {
@@ -48,4 +48,4 @@ exports.registerUser = function (nom, prenom, adresse,  eMail, telephone, userna
             }
         }
     );
-}
+};
