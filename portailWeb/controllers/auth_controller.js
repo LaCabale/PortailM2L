@@ -15,14 +15,18 @@ exports.signUp_form = function(req, res){
 }
 
 exports.signUp_authentification = function(req, res) {
-    users_model.registerUser((req.body.nom),(req.body.prenom),(req.body.adresse),(req.body.eMail),(req.body.telephone),(req.body.newUsername), (req.body.Password),function(bool){
-        if(bool == true){
-        res.redirect('/');
-        }
-        else{
-            res.redirect('/users/signUp');
-        }
-    });
+    if (req.body.nom && req.body.prenom && req.body.adresse && req.body.eMail && req.body.newUsername && req.body.Password){
+        users_model.registerUser((req.body.nom), (req.body.prenom), (req.body.adresse), (req.body.eMail), (req.body.telephone), (req.body.newUsername), (req.body.Password), function (bool) {
+            if (bool == true) {
+                res.redirect('/');
+            }
+            else {
+                res.redirect('/users/signUp');
+            }
+        });
+    } else{
+        res.render('signUp',{MessageSign: "Certains champs obligatoires n'ont pas été remplis" });
+    }
 }
 
 

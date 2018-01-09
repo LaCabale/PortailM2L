@@ -6,8 +6,8 @@ exports.deplacements = function(req,res){
 
     deplacementDAO.recupDeplacements(
         function(lesDeplacements){
-
-            res.render('deplacements',{listeDeplacements: lesDeplacements})
+            console.log(req.session);
+            res.render('deplacements',{listeDeplacements: lesDeplacements, user: req.user})
         }
     );
 };
