@@ -6,25 +6,29 @@ block append body
         .jumbotron
             form.form-horizontal(action="/users/signUp", method="post")
                 div
-                    label= "Nom: "
+                    label= "Nom*: "
                     input(type= "text", name="nom")
                 div
-                    label= "Prenom: "
+                    label= "Prenom*: "
                     input(type="text", name="prenom")
                 div
-                    label= "Adresse: "
+                    label= "Adresse*: "
                     input(type= "text", name="adresse")
                 div
-                    label= "E-mail: "
+                    label= "E-mail*: "
                     input(type="text", id="newEmail", name="eMail")
                 div
                     label= "Telephone: "
                     input(type="text", name="telephone")
                 div
-                    label= "Username: "
-                    input(type="text", id="newUsername" ,name="newUsername")
+                    label= "Username*: "
+                    input(type="text", id="newUsername" , name="newUsername")
                 div
-                    label= "Password: "
+                    label= "Password*: "
                     input(type="password", id="newPassword", name="Password")
                 div
+                    i Les champs marqués d'une étoile sont obligatoires
+                div
                     input(type="submit", value="Sign Up")
+                if(MessageSign)
+                    p(style={color: 'red'}) #{MessageSign}
