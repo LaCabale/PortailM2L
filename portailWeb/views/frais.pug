@@ -11,16 +11,19 @@ block append body
         .lead
             form.form-horizontal(action="/frais/verification", method="post")
                 div
-                    label= "Motifs de déplacement:"
+                    label= "Motifs de déplacement :"
                     input(type="text", name="motif")
                 div
-                    label= "Ville de départ:"
+                    label="Date du déplacement : "
+                    input(type="date", name="date")
+                div
+                    label= "Ville de départ :"
                     input(type="text", name="villeD")
                 div
-                    label= "Ville d'arrivée:"
+                    label= "Ville d'arrivé :"
                     input(type="text", name="villeA")
                 div
-                    label= "Km parcourus:"
+                    label= "Km parcourus :"
                     input(type="text", name="parcourus")
                 div
                     input(type="submit", value="Valider")

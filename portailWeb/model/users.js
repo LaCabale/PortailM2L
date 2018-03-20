@@ -1,35 +1,42 @@
 const adherentDAO = require('../DAO/adherentDAO');
 const AdherentDAO = new adherentDAO();
-const Adherent = require('../metier/Adherent');
 
-// Research function by id
+// Recherche un Adherent dans la base de donnée à partir de son Id
 exports.findById = function(id,callback) {
-    find = false;
-    records.forEach(function(record) {
-        if (record.id == id) {
-            find = true;
-            return callback(null, record);
-        }
-    });
-    if (!(find)){
-        return callback(new Error('User ' + id + ' does not exist'))}
- };
-
-// Research function by Username
-exports.findByUsername = function(username, user) {
     AdherentDAO.getListAdherents(function (listAdherents){
         if(listAdherents != null) {
-                listAdherents.forEach(function (mec) {
-                    if (mec.username === username) {
-                        user(mec);
+            listAdherents.forEach(function (user) {
+                if (user.id === id) {
+                    callback(null, user);
+                }
+            });
+        } else {
+            callback(null, null);
+        }
+    });
+ };
+
+//Recherche un Adherent dans la base de donnée à partir de son Username
+exports.findByUsername = function(username, user) {
+    AdherentDAO.getListAdherents(function (listAdherents){
+        find = false;
+        if(listAdherents != null) {
+                listAdherents.forEach(function (adherent) {
+                    if (adherent.username === username) {
+                        find= true;
+                        user(null, adherent);
                     }
                 });
+                if (!find){
+                    user(null,null);
+                }
         } else {
-            user(null);
+            user(null, null);
         }
     });
 };
 
+//Permet l'enregistrement d'un nouvel Adherent dans la base de donnée
 exports.registerUser = function (nom, prenom, adresse,  eMail, telephone, username, passeword, callback) {
     this.findByUsername(username, function (user) {
             if (user == null) {
@@ -41,4 +48,4 @@ exports.registerUser = function (nom, prenom, adresse,  eMail, telephone, userna
             }
         }
     );
-}
+};

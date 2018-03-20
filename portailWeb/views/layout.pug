@@ -16,16 +16,20 @@ block body
                     span.icon-bar
                     span.icon-bar
                     span.icon-bar
-                a.navbar-brand(href='#')= "Portail M2L"
+                a.navbar-brand(href='/')= "Portail M2L"
             #navbar.navbar-collapse.collapse
                 ul.nav.navbar-nav
-                    li.active
-                        a(href='/') Home
+                    li
+                        a(href='/hauts_faits') Les hauts faits de la M2L
+                    li
+                        a(href='/informations') Information pratique
                     li
                         a(href='/frais') Enregistrez vos frais
                     li
-                        a(href='/recapitulatif_trajets') Voir vos trajets
-                    li.dropdown
+                        a(href='/recap_trajets') Voir vos déplacements
+                    li
+                        a(href='/frais') Contact
+                    //li.dropdown
                         a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-expanded='false')
                             | Menu 3 
                             span.caret
@@ -42,14 +46,13 @@ block body
                                 a(href='#') Action 4
                             li
                                 a(href='#') Action 5
-                                
+
                 ul.nav.navbar-nav.navbar-right
                     li
-                        if (!username)
+                        if (!user)
                            li
                                a(href="/users/login") Login
                            li
                                a(href="/users/signUp") SignUp
                         else
-                           li
-                               a(href="/users/logout") Logout
+                            a(href="/users/logout") Logout

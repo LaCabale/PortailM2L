@@ -2,10 +2,15 @@ var DeplacementDAO = require('../DAO/deplacementDAO');
 var deplacementDAO = new DeplacementDAO();
 
 exports.afficheRecap = function(req,res){
-    deplacementDAO.recupDeplacements(
-        function(lesDeplacements){
 
-            res.render('recapTrajets',{lesDeplacements: lesDeplacements})
-        }
-    );
+    if (!req.user) {
+        res.redirect('/users/login');
+    }
+    else {
+        deplacementDAO.recupDeplacements(req.user.id,
+            function (lesDeplacements) {
+                res.render('recapTrajets', {lesDeplacements: lesDeplacements})
+            }
+        );
+    }
 };

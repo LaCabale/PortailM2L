@@ -1,43 +1,35 @@
-var users_model = require('../model/users');
+let users_model = require('../model/users');
 
-// LOGIN
+// Permet d'afficher le formulaire de connexion
 exports.login_form = function(req, res) { // attention à la route / depuis le /login
      res.render('login');
  };
 
+//Permet de se connecter (autentification)
 exports.login_authentication = function(req, res) {
-    users_model.findByUsername(req.body.username, function(user) {
-        if(user != null) {
-                if (user.password === req.body.password) {
-                    res.render('index', {username: req.body.username});
-                }
-                else {
-                    res.redirect('/users/login');
-                }
-        } else {
-            res.redirect('/users/login');
-        }
-    });
+    res.redirect('/');
 };
 
-// SIGNUP
+// Permet d'afficher le formulaire d'enregistrement d'un nouvel utilisateur
 exports.signUp_form = function(req, res){
     res.render('signUp');
-}
+};
 
+//Permet d'enregister un nouvel utilisateur dans la base de donnée
 exports.signUp_authentification = function(req, res) {
     users_model.registerUser((req.body.nom),(req.body.prenom),(req.body.adresse),(req.body.eMail),(req.body.telephone),(req.body.newUsername), (req.body.Password),function(bool){
-        if(bool == true){
+        if(bool){
         res.redirect('/');
         }
         else{
             res.redirect('/users/signUp');
         }
     });
-}
+};
 
 
-//LOGOUT
+//Permet de déconnecter un utilisateur
 exports.logout = function(req, res){
-     res.render('index', {username : null});
+    req.logout();
+    res.redirect('/');
  };

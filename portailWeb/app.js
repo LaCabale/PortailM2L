@@ -6,7 +6,10 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session'); //library to manage sessions.
 var passport = require('passport');
-var Strategy = require('passport-local');
+var Strategy = require('passport-local').Strategy;
+var session = require('express-session'); //library to manage sessions.
+
+var users_model = require('./model/users');
 
 //ROUTES
 var index = require('./routes/index');
@@ -51,21 +54,23 @@ passport.use(new Strategy(
 // serializing, and querying the user record by ID from the database when
 // deserializing.
 
-passport.serializeUser(function(user, callback)
-    {
+passport.serializeUser(
+    function(user, callback) {
         callback(null, user.id);
-    });
-
-passport.deserializeUser(function(id, callback)
-{
-        users_model.findById(id, function (err, user)
-            {
-                if (err)
+    }
+);
+passport.deserializeUser(
+    function(id, callback) {
+        users_model.findById(id,
+            function (err, user) {
+                if (err) {
                     return callback(err);
-                else
-                    callback(null, user);
-            });
-});
+                }
+                callback(null, user);
+            }
+        );
+    }
+);
 
 var app = express();
 
@@ -86,19 +91,13 @@ app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: fals
 // PassPort init
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(function(req, res, next)
-{
-  res.locals.user = req.user || null;
-  next();
-});
 
 // ROUTES
 app.use('/', index);
 app.use('/users', users);
 app.use('/frais', frais);
+app.use('/recap_trajets', recapTrajets);
 app.use('/adherents', adherents);
-app.use('/recapitulatif_trajets', recapTrajets);
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
