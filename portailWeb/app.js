@@ -12,6 +12,7 @@ var Strategy = require('passport-local');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var frais = require('./routes/frais');
+var adherents = require('./routes/adherents');
 var recapTrajets = require('./routes/recapTrajets');
 
 
@@ -95,6 +96,7 @@ app.use(function(req, res, next)
 app.use('/', index);
 app.use('/users', users);
 app.use('/frais', frais);
+app.use('/adherents', adherents);
 app.use('/recapitulatif_trajets', recapTrajets);
 
 

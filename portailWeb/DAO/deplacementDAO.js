@@ -4,11 +4,12 @@ const Deplacement = require('../metier/Deplacement');
 class deplacementDAO {
 
     constructor(){
+        this._client = new Client({
+            connectionString : 'postgres://groupe3:groupe3@192.168.222.86:5432/M2L'
+        });
 
-        this._client = new Client({connectionString : 'postgres://postgres:root@localhost:5433/M2L'});
-
-        this._client.connect(function (err){
-            if (err) return (err.stack);
+        this._client.connect(function (err) {
+            if (err) return done(err);
         });
     }
 
