@@ -3,6 +3,9 @@ const frais_DAO = new Frais_DAO();
 
 //FRAIS
     exports.frais = function(req, res) {
+        if (!req.user) {
+            res.redirect('/users/login');
+        }
         res.render('frais')
     }
 
