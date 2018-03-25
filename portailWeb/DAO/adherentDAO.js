@@ -18,7 +18,7 @@ class adherentDAO{
     getListAdherents(cb){
         const query = {
             name: 'get-all-adherents',
-            text: 'SELECT idadherent,username,password FROM adherent ;'
+            text: 'SELECT username,password, idadherent, nom, prenom, e_mail FROM adherent ;'
         };
 
         this._client.query(query, function (err,result) {
@@ -28,7 +28,7 @@ class adherentDAO{
             } else {
                 result.rows.forEach(function (row) {
                     let unAdherent;
-                    unAdherent = new Adherent(row['idadherent'], row['username'], row['password']);
+                    unAdherent = new Adherent(row['username'], row['password'], row['idadherent'], row['e_mail'], row['nom'], row['prenom']);
                     lesAdherents.push(unAdherent);
                     console.log(lesAdherents);
                 });

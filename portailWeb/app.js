@@ -15,6 +15,7 @@ var users_model = require('./model/users');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var frais = require('./routes/frais');
+var adherents = require('./routes/adherents');
 var recapTrajets = require('./routes/recapTrajets');
 
 
@@ -87,8 +88,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
 // secret : key used to encrypted the cookie
 
-// Initialize Passport and restore authentication state, if any, from the
-// session.
+// PassPort init
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -97,7 +97,7 @@ app.use('/', index);
 app.use('/users', users);
 app.use('/frais', frais);
 app.use('/recap_trajets', recapTrajets);
-
+app.use('/adherents', adherents);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
