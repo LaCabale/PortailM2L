@@ -2,29 +2,164 @@ extends layout
 
 block append body
     .container.theme-showcase(role='main')
-
+        h1 Inscription
         .jumbotron
-            form.form-horizontal(action="/users/signUp", method="post")
-                div
+            form.form-horizontal(role="form" id="inscriptionForm")
+                div(class="form-group offset-lg-2 row")
                     label= "Nom: "
-                    input(type= "text", name="nom")
-                div
+                    input(type= "text", name="nom" id="nom" class="form-control")
+                    span(class="help-block" style="display: none; color:red;") Le nom est obligatoire.
+                div(class="form-group offset-lg-2 row")
                     label= "Prenom: "
-                    input(type="text", name="prenom")
-                div
+                    input(type="text", id="prenom" name="prenom" class="form-control")
+                    span(class="help-block" style="display: none; color:red;") Le prénom est obligatoire
+                div(class="form-group offset-lg-2 row")
                     label= "Adresse: "
-                    input(type= "text", name="adresse")
-                div
+                    input(type= "text", name="adresse" id="adresse" class="form-control")
+                    span(class="help-block" style="display: none; color:red;") L'adresse est obligatoire.
+                div(class="form-group offset-lg-2 row")
                     label= "E-mail: "
-                    input(type="text", id="newEmail", name="eMail")
-                div
+                    input(type="text", id="eMail", name="eMail" class="form-control")
+                    span(class="help-block" style="display: none; color:red;") L'email est obligatoire : exemple@mail.fr
+                div(class="form-group offset-lg-2 row")
                     label= "Telephone: "
-                    input(type="text", name="telephone")
-                div
+                    input(type="text", name="telephone" id="telephone" class="form-control")
+                    span(class="help-block" style="display: none; color:red;") Le numéro de téléphone est obligatoire : 0102030405
+                div(class="form-group offset-lg-2 row")
                     label= "Username: "
-                    input(type="text", id="newUsername" ,name="newUsername")
-                div
+                    input(type="text", id="newUsername" ,name="newUsername" class="form-control")
+                    span(class="help-block" style="display: none; color:red;") Le username est obligatoire
+                div(class="form-group offset-lg-2 row")
                     label= "Password: "
-                    input(type="password", id="newPassword", name="Password")
+                    input(type="password", id="Password", name="Password" class="form-control")
+                    span(class="help-block" style="display: none; color:red;") Le mot de passe est obligatoire.
                 div
-                    input(type="submit", value="Sign Up")
+                    input(type="submit", id="inscriptionSubmit" class="btn" value="Sign Up")
+
+                    p(style="font-size:8pt;margin-top:50px") Vos informations personnelles vous seront accessibles à tout moment. Vous pouvez les modifier ou les supprimer quand vous le souhaitez, elles nous permettent juste de vous identifier et de rester en contact avec vous. Vos informations ne seront jamais vendues ou partagées avec un tier.
+
+            script.
+                var contactFormUtils = {
+                    isValidEmail: function (email) {
+                        var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                        return regex.test(email);
+                    },
+                    addError: function ($input) {
+                        var parentFormGroup = $input.parents('.form-group');
+                        parentFormGroup.children('.help-block').show();
+                        parentFormGroup.addClass('has-error');
+                    },
+                    isValidTel: function (tel) {
+                        var regex = /(\+\d+(\s|-))?0\d(\s|-)?(\d{2}(\s|-)?){4}/;
+                        return regex.test(tel);
+                    },
+                    clearErrors: function () {
+                        $('#Alert').remove();
+                        $('#inscriptionForm .help-block').hide();
+                        $('#inscriptionForm .form-group').removeClass('has-error');
+                    }
+                };
+
+                $(document).ready(function () {
+
+                    /* autocomplete adresse */
+                    var options = {
+                        componentRestrictions: {country: 'fr'}
+                    };
+                    var input = document.getElementById('adresse');
+                    autocomplete = new google.maps.places.Autocomplete(input, options);
+
+                    google.maps.event.addListener(autocomplete, 'place_changed', function () {
+                        var place = autocomplete.getPlace();
+                    });
+
+                    $('#inscriptionSubmit').click(function (e) {
+                        e.preventDefault();
+                        contactFormUtils.clearErrors()
+
+                        var hasErrors = false;
+
+
+                        // nom
+                        var $nom = $('#nom');
+                        if (!$.trim($nom.val())) {
+                            hasErrors = true;
+                            contactFormUtils.addError($nom);
+                        }
+
+                        // prenom
+                        var $prenom = $('#prenom');
+                        if (!$.trim($prenom.val())) {
+                            hasErrors = true;
+                            contactFormUtils.addError($prenom);
+                        }
+
+                        // adresse
+                        var $adresse = $('#adresse');
+                        if (!$.trim($adresse.val())) {
+                            hasErrors = true;
+                            contactFormUtils.addError($adresse);
+                        }
+
+                        // email
+                        var $eMail = $('#eMail');
+                        if (!contactFormUtils.isValidEmail($eMail.val())) {
+                            hasErrors = true;
+                            contactFormUtils.addError($eMail);
+                        }
+
+                        // Telephone
+                        var $telephone = $('#telephone');
+                        if (!contactFormUtils.isValidTel($telephone.val())) {
+                            hasErrors = true;
+                            contactFormUtils.addError($telephone);
+                        }
+
+                        // Username
+                        var $newUsernemae = $('#newUsername');
+                        if (!$.trim($newUsernemae.val())) {
+                            hasErrors = true;
+                            contactFormUtils.addError($newUsernemae);
+                        }
+
+                        // Password
+                        var $Password = $('#Password');
+                        if (!$.trim($Password.val())) {
+                            hasErrors = true;
+                            contactFormUtils.addError($Password);
+                        }
+
+                        if (hasErrors) {
+                            return false;
+                        }
+
+                        var userInfos = {
+                            nom: $('#nom').val(),
+                            prenom: $('#prenom').val(),
+                            adresse: $('#adresse').val(),
+                            eMail: $('#eMail').val(),
+                            telephone: $('#telephone').val(),
+                            newUsername: $('#newUsername').val(),
+                            Password: $('#Password').val(),
+                        };
+                        $.ajax({
+                            url: 'http://localhost:3000/users/signUp',
+                            method: 'post',
+                            data: userInfos,
+                            dataType: 'json',
+                            complete: function(xhr, status)
+                            {
+                              if (status == 'error' || !xhr.responseText)
+                                {
+                                    alert("Erreur : un problème est survenu lors de l'enregistrement. Veuillez réessayer ultérieurement ou vérifier vos informations.");
+                                }
+                                else
+                                {
+                                    alert("Votre inscription a bien été prise en compte. Connectez vous dès maintenant ! ☺");
+                                    location.replace('/');
+                                }
+                            }
+                        });
+                    });
+
+                });

@@ -19,7 +19,7 @@ exports.signUp_form = function(req, res){
 exports.signUp_authentification = function(req, res) {
     users_model.registerUser((req.body.nom),(req.body.prenom),(req.body.adresse),(req.body.eMail),(req.body.telephone),(req.body.newUsername), (req.body.Password),function(bool){
         if(bool){
-        res.redirect('/');
+        res.status('201').send('bien joué');
         }
         else{
             res.redirect('/users/signUp');
