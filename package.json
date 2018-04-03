@@ -27,7 +27,8 @@
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "password": "^0.1.1",
-    "pug": "^2.0.0-rc.4",
+    "pg": "^7.4.1",
+    "pug": "^2.0.2",
     "pug-bootstrap": "0.0.15",
     "serve-favicon": "^2.4.5"
   }
