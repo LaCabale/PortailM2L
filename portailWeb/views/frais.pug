@@ -29,7 +29,7 @@ block append body
                 div
                     input(type="text", name="parcourus", id='kiloM' hidden)
                 div
-                    input(type="submit", value="Valider" id="validButton")
+                    input(type="submit", class="btn btn-primary" value="Valider" id="validButton")
 
                 script.
                     var contactFormUtils = {
@@ -107,6 +107,32 @@ block append body
                                 return false;
                             }
 
+                            var origin = $('#villeD').val();
+                            var destination = $('#villeA').val();
+
+                            var service = new google.maps.DistanceMatrixService();
+                            service.getDistanceMatrix(
+                                {
+                                    origins: [origin],
+                                    destinations: [destination],
+                                    travelMode: 'DRIVING',
+                                }, callback);
+
+                            function callback(response, status) {
+                                if (status == 'OK') {
+                                    var origins = response.originAddresses;
+
+                                    for (var i = 0; i < origins.length; i++) {
+                                        var results = response.rows[i].elements;
+                                        for (var j = 0; j < results.length; j++) {
+                                            var element = results[j];
+                                            $('#kiloM').val(element.distance.value / 1000);
+                                            console.log($('#kiloM').val());
+                                        }
+                                    }
+                                }
+                            }
+
                             var fraisInfos = {
                                 motif: $('#motif').val(),
                                 date: $('#date').val(),
@@ -114,21 +140,6 @@ block append body
                                 villeA: $('#villeA').val(),
                                 kiloM: $('#kiloM').val(),
                             };
-
-                            var response;
-
-                            try {
-                                response = $.get(
-                                    "https://maps.googleapis.com/maps/api/distancematrix/json?" +
-                                    "origins=" + $('#villeD').val() +
-                                    "&destinations=" + $('#villeA').val() +
-                                    "&language=fr-FR" +
-                                    "&key=AIzaSyDFM4kP0sdJsNtZiQh2ZDj1q8zpyAk48eQ"
-                                );
-                            }
-                            catch (err) {
-                                document.getElementById("demo").innerHTML = err.message;
-                            }
 
                             $.ajax({
                                 url: 'http://localhost:3000/frais/verification',
@@ -140,8 +151,7 @@ block append body
                                         alert("Erreur : un problème est survenu lors de l'enregistrement. Veuillez réessayer ultérieurement ou vérifier vos informations.");
                                     }
                                     else {
-                                        alert("Votre inscription a bien été prise en compte. Connectez vous dès maintenant ! ☺");
-                                        //location.replace('/frais/verification');
+                                        location.replace('/frais/verification');
                                     }
                                 }
                             });
