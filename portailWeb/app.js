@@ -16,7 +16,7 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 var frais = require('./routes/frais');
 var recapTrajets = require('./routes/recapTrajets');
-
+var android = require('./routes/android');
 
 //AUTHENTIFICATION
 
@@ -97,7 +97,7 @@ app.use('/', index);
 app.use('/users', users);
 app.use('/frais', frais);
 app.use('/recap_trajets', recapTrajets);
-
+app.use('/android', android);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
