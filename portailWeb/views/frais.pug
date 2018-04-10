@@ -13,7 +13,7 @@ block append body
             form.form-horizontal(id="formFrais", action="/frais/verification", method="post")
                 div
                     label= "Motifs de déplacement :"
-                    input(type="text", name="motif")
+                    input(type="text", name="motif", data-validation="required")
                 div
                     label="Date du déplacement : "
                     input(type="date", name="date")
@@ -30,7 +30,7 @@ block append body
                     input(type="submit", value="Valider", name="valider", id="validButton")
 
 
-            script.
+            //script.
                 $(document).ready(function() {
                     $("#validButton").click(function () {
                         $('#formFrais').validate({
