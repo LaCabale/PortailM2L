@@ -8,6 +8,7 @@ var session = require('express-session'); //library to manage sessions.
 var passport = require('passport');
 var Strategy = require('passport-local').Strategy;
 var session = require('express-session'); //library to manage sessions.
+var passwordHash = require('password-hash');
 
 var users_model = require('./model/users');
 
@@ -36,10 +37,10 @@ passport.use(new Strategy(
                     return done(null, false, { message: 'Incorrect username.' });
                 }
 
-                if (user.password !== password) {
-                    return done(null, false, { message: 'Incorrect password.' });
+                if (passwordHash.verify(password, user.password)) {
+                    return done(null, user);
                 }
-                return done(null, user);
+                return done(null, false, { message: 'Incorrect password.' });
             }
         );
     }

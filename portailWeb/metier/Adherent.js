@@ -1,6 +1,7 @@
 class Adherent
 {
 
+
     constructor(unId, unUsername, unPassword)
     {
      this._id = unId;
@@ -13,7 +14,9 @@ class Adherent
     }
 
     get password() {
-        return this._password;
+        var passwordHash = require('password-hash');
+
+        return passwordHash.generate(this._password);
     }
 
     get id() {
