@@ -1,5 +1,6 @@
 const Deplacement = require('../metier/Deplacement');
 const {Client} = require('pg');
+
 class Frais_DAO {
     constructor() {
         this._client = new Client({
@@ -11,37 +12,13 @@ class Frais_DAO {
 
     }
 
-    getVilles(villeD, villeA, callback)
-    {
-        let query = {text : "select idville from ville where nom = '" + villeD +
-        "' or nom = '" + villeA+"'"};
-
-        this._client.query(query, function(err, result)
-        {
-            if (err)
-            {
-                console.log(err.stack);
-            }
-            else
-            {
-                let lesVilles = [];
-                result.rows.forEach(function(row)
-                {
-                    console.log(row);
-                    lesVilles.push(row['idville']);
-                });
-                callback(lesVilles);
-            }
-        });
-    }
-
     addNewDeplacements(motif, idAdherent, date, villeD, villeA, cout, fraisHebergement,
                        fraisRepas, fraisPeage, kilomP)
     {
 
         let query = {
             name: 'add-new-deplacement',
-            text: "select addNewDeplacement ('"+date+"', "+cout+", "+idAdherent+ ", "+fraisRepas+", "+fraisHebergement+","+fraisPeage+", '"+motif+"', "+villeD+","+villeA+","+kilomP+");"
+            text: "select addNewDeplacement ('"+date+"', "+parseFloat(cout).toFixed(2)+", "+idAdherent+ ", "+fraisRepas+", "+fraisHebergement+", "+fraisPeage+", '"+motif+"', '"+villeD+"', '"+villeA+"', "+parseFloat(kilomP).toFixed(2)+");"
         };
 
         this._client.query(query, function(err){
