@@ -30,7 +30,6 @@ class adherentDAO{
                     let unAdherent;
                     unAdherent = new Adherent(row['username'], row['password'], row['idadherent'], row['e_mail'], row['nom'], row['prenom']);
                     lesAdherents.push(unAdherent);
-                    console.log(lesAdherents);
                 });
                 cb(lesAdherents);
             }
