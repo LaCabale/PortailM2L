@@ -1,11 +1,18 @@
-extends ../node_modules/pug-bootstrap/_bootstrap
+extends ../../node_modules/pug-bootstrap/_bootstrap
 
 append styles
     // Bootstrap theme
     +bootswatch("paper")
     // Custom styles for this template
     link(href='../stylesheets/theme.css', rel='stylesheet')
-        
+    script(src='../jquery-3.3.1.js')
+    script(type="text/javascript" charset="UTF-8" src='https://maps.googleapis.com/maps-api-v3/api/js/32/1a/intl/fr_ALL/common.js')
+    script(type="text/javascript" charset="UTF-8" src='https://maps.googleapis.com/maps-api-v3/api/js/32/1a/intl/fr_ALL/util.js')
+    script(type="text/javascript" charset="UTF-8" src='https://maps.googleapis.com/maps-api-v3/api/js/32/1a/intl/fr_ALL/controls.js')
+    script(type="text/javascript" charset="UTF-8" src='https://maps.googleapis.com/maps-api-v3/api/js/32/1a/intl/fr_ALL/places_impl.js')
+    script(type="text/javascript" charset="UTF-8" src='https://maps.googleapis.com/maps-api-v3/api/js/32/1a/intl/fr_ALL/stats.js')
+    script(type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFM4kP0sdJsNtZiQh2ZDj1q8zpyAk48eQ&libraries=places")
+
 block body
     // Fixed navbar
     nav.navbar.navbar-inverse
