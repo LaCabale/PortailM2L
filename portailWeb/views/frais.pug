@@ -9,21 +9,152 @@ block append body
 
 
         .lead
-            form.form-horizontal(action="/frais/verification", method="post")
-                div
+            form.form-horizontal(role="form" id="fraisForm")
+                div(class="form-group offset-lg-2 row")
                     label= "Motifs de déplacement :"
-                    input(type="text", name="motif")
-                div
+                    input(type="text", name="motif", id="motif", class="form-control")
+                    span(class="help-block" style="display: none; color:red;") Le motif est obligatoire
+                div(class="form-group offset-lg-2 row")
                     label="Date du déplacement : "
-                    input(type="date", name="date")
+                    input(type="date", name="date", id="date", class="form-control")
+                    span(class="help-block" style="display: none; color:red;") La date est obligatoire
+                div(class="form-group offset-lg-2 row")
+                    label= "Lieu de départ :"
+                    input(type="text", name="villeD", id="villeD", class="form-control")
+                    span(class="help-block" style="display: none; color:red;") Le lieu de départ est obligatoire
+                div(class="form-group offset-lg-2 row")
+                    label= "Lieu d'arrivée :"
+                    input(type="text", name="villeA", id='villeA', class="form-control")
+                    span(class="help-block" style="display: none; color:red;") Le lieu d'arrivée est obligatoire
                 div
-                    label= "Ville de départ :"
-                    input(type="text", name="villeD")
+                    input(type="text", name="parcourus", id='kiloM' hidden)
                 div
-                    label= "Ville d'arrivé :"
-                    input(type="text", name="villeA")
-                div
-                    label= "Km parcourus :"
-                    input(type="text", name="parcourus")
-                div
-                    input(type="submit", value="Valider")
+                    input(type="submit", class="btn btn-primary" value="Valider" id="validButton")
+
+                script.
+                    var contactFormUtils = {
+                        addError: function ($input) {
+                            var parentFormGroup = $input.parents('.form-group');
+                            parentFormGroup.children('.help-block').show();
+                            parentFormGroup.addClass('has-error');
+                        },
+                        clearErrors: function () {
+                            $('#Alert').remove();
+                            $('#inscriptionForm .help-block').hide();
+                            $('#inscriptionForm .form-group').removeClass('has-error');
+                        }
+                    };
+
+                    $(document).ready(function () {
+
+                        /* auto-complete lieu de départ */
+                        var optionsVD = {
+                            componentRestrictions: {country: 'fr'}
+                        };
+                        var input = document.getElementById('villeD');
+                        autocomplete = new google.maps.places.Autocomplete(input, optionsVD);
+
+                        google.maps.event.addListener(autocomplete, 'place_changed', function () {
+                            var placeVD = autocomplete.getPlace();
+                        });
+
+                        /* auto-complete lieu d'arrivée */
+                        var optionsVA = {
+                            componentRestrictions: {country: 'fr'}
+                        };
+                        var input = document.getElementById('villeA');
+                        autocomplete = new google.maps.places.Autocomplete(input, optionsVA);
+
+                        google.maps.event.addListener(autocomplete, 'place_changed', function () {
+                            var placeVA = autocomplete.getPlace();
+                        });
+
+                        $('#validButton').click(function (e) {
+                            e.preventDefault();
+                            contactFormUtils.clearErrors()
+
+                            var hasErrors = false;
+
+                            // motif
+                            var $motif = $('#motif');
+                            if (!$.trim($motif.val())) {
+                                hasErrors = true;
+                                contactFormUtils.addError($motif);
+                            }
+
+                            // Date
+                            var $date = $('#date');
+                            if (!$.trim($date.val())) {
+                                hasErrors = true;
+                                contactFormUtils.addError($date);
+                            }
+
+                            // villeD
+                            var $villeD = $('#villeD');
+                            if (!$.trim($villeD.val())) {
+                                hasErrors = true;
+                                contactFormUtils.addError($villeD);
+                            }
+
+                            // villeA
+                            var $villeA = $('#villeA');
+                            if (!$.trim($villeA.val())) {
+                                hasErrors = true;
+                                contactFormUtils.addError($villeA);
+                            }
+
+                            if (hasErrors) {
+                                return false;
+                            }
+
+                            var origin = $('#villeD').val();
+                            var destination = $('#villeA').val();
+
+                            var service = new google.maps.DistanceMatrixService();
+                            service.getDistanceMatrix(
+                                {
+                                    origins: [origin],
+                                    destinations: [destination],
+                                    travelMode: 'DRIVING',
+                                }, callback);
+
+                            function callback(response, status) {
+                                if (status == 'OK') {
+                                    var origins = response.originAddresses;
+
+                                    for (var i = 0; i < origins.length; i++) {
+                                        var results = response.rows[i].elements;
+                                        for (var j = 0; j < results.length; j++) {
+                                            var element = results[j];
+                                            $('#kiloM').val(element.distance.value / 1000);
+                                            console.log($('#kiloM').val());
+                                        }
+                                    }
+                                }
+                            }
+
+                            var fraisInfos = {
+                                motif: $('#motif').val(),
+                                date: $('#date').val(),
+                                villeD: $('#villeD').val(),
+                                villeA: $('#villeA').val(),
+                                kiloM: $('#kiloM').val(),
+                            };
+
+                            $.ajax({
+                                url: 'http://localhost:3000/frais/verification',
+                                method: 'post',
+                                data: fraisInfos,
+                                dataType: 'json',
+                                complete: function (xhr, status) {
+                                    if (status == 'error' || !xhr.responseText) {
+                                        alert("Erreur : un problème est survenu lors de l'enregistrement. Veuillez réessayer ultérieurement ou vérifier vos informations.");
+                                    }
+                                    else {
+                                        location.replace('/frais/verification');
+                                    }
+                                }
+                            });
+                        });
+
+                    });
