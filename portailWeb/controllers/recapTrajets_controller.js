@@ -9,7 +9,7 @@ exports.afficheRecap = function(req,res){
     else {
         deplacementDAO.recupDeplacements(req.user.id,
             function (lesDeplacements) {
-                res.render('recapTrajets', {lesDeplacements: lesDeplacements})
+                res.render('recapTrajets', {lesDeplacements: lesDeplacements, user: req.user})
             }
         );
     }
