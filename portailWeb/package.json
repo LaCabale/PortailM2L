@@ -6,6 +6,7 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "atob": "^2.1.0",
     "body-parser": "~1.17.1",
     "client": "0.0.1",
     "connect": "^3.6.5",

@@ -2,12 +2,15 @@ class Adherent
 {
 
 
-    //Constructeur de la classe Adherent
-    constructor(unId, unUsername, unPassword)
+    constructor(unUsername, unPassword, unId, unEmail, unNom, unPrenom)
     {
-     this._id = unId;
      this._username = unUsername;
      this._password = unPassword;
+     this._id = unId;
+     this._email = unEmail;
+     this._nom = unNom;
+     this._prenom = unPrenom;
+
     }
 
     //Getter de l'attribut Username
@@ -22,9 +25,25 @@ class Adherent
         return passwordHash.generate(this._password);
     }
 
-    //Getter de l'attribut Id
-    get id() {
+
+    get id()
+    {
         return this._id;
+    }
+
+    get email()
+    {
+        return this._email;
+    }
+
+    get prenom()
+    {
+        return this._prenom;
+    }
+
+    get nom()
+    {
+        return this._nom;
     }
 
 }
