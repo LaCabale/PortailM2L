@@ -1,6 +1,7 @@
 class Adherent
 {
 
+
     constructor(unUsername, unPassword, unId, unEmail, unNom, unPrenom)
     {
      this._username = unUsername;
@@ -12,13 +13,18 @@ class Adherent
 
     }
 
+    //Getter de l'attribut Username
     get username() {
         return this._username;
     }
 
+    //Getter de l'attribut password
     get password() {
-        return this._password;
+        var passwordHash = require('password-hash');
+
+        return passwordHash.generate(this._password);
     }
+
 
     get id()
     {

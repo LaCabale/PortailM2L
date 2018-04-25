@@ -23,14 +23,14 @@ const frais_DAO = new Frais_DAO();
         res.render('verification', {
             motif: req.body.motif, villeD: req.body.villeD,
             villeA: req.body.villeA, kiloM: req.body.parcourus, cout: cout,
-            date : req.body.date
+            date : req.body.date, user: req.user.id
         });
     }
 
 //FRAIS ANNEXE
     exports.fraisAnnexes = function (req, res) {
         res.render('fraisAnnexes', {motif : req.body.motif, villeD : req.body.villeD, villeA : req.body.villeA,
-        kiloM: req.body.kiloM, cout: req.body.cout, date : req.body.date});
+        kiloM: req.body.kiloM, cout: req.body.cout, date : req.body.date, user: req.user.id});
     };
 
     exports.fraisIndex = function (req, res) {
