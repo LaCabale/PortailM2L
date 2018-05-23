@@ -16,6 +16,10 @@ class Frais_DAO {
                        fraisRepas, fraisPeage, kilomP)
     {
 
+        /** Permet d'insérer dans la base de données sans caractère apostrophe*/
+        villeD = villeD.replace("'"," ");
+        villeA = villeA.replace("'"," ");
+
         let query = {
             name: 'add-new-deplacement',
             text: "select addNewDeplacement ('"+date+"', "+parseFloat(cout).toFixed(2)+", "+idAdherent+ ", "+fraisRepas+", "+fraisHebergement+", "+fraisPeage+", '"+motif+"', '"+villeD+"', '"+villeA+"', "+parseFloat(kilomP).toFixed(2)+");"
