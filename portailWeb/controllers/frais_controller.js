@@ -6,7 +6,7 @@ const frais_DAO = new Frais_DAO();
         if (!req.user) {
             res.redirect('/users/login');
         }
-        res.render('frais', user: req.user)
+        res.render('frais', {user: req.user})
     }
 
 //VERIFICATION
@@ -39,7 +39,7 @@ const frais_DAO = new Frais_DAO();
             frais_DAO.addNewDeplacements(req.body.motif, req.user.id, req.body.date, lesVilles[0],
                 lesVilles[1], req.body.cout, req.body.montantHebergement, req.body.montantRepas,
                 req.body.montantHebergement, (req.body.kiloM));
-            res.redirect('/', user: req.user)
+            res.redirect('/', {user: req.user})
         });
         ;
     };
