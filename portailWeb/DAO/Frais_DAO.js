@@ -19,6 +19,7 @@ class Frais_DAO {
         /** Permet d'insérer dans la base de données sans caractère apostrophe*/
         villeD = villeD.replace("'"," ");
         villeA = villeA.replace("'"," ");
+        motif = motif.replace("'", " ");
 
         let query = {
             name: 'add-new-deplacement',
