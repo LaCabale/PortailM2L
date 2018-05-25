@@ -11,7 +11,7 @@ block append body
         .lead
             form.form-horizontal(role="form" id="fraisForm")
                 div(class="form-group offset-lg-2 row")
-                    label= "Motifs de déplacement :"
+                    label= "Motif du déplacement :"
                     input(type="text", name="motif", id="motif", class="form-control")
                     span(class="help-block" style="display: none; color:red;") Le motif est obligatoire
                 div(class="form-group offset-lg-2 row")
@@ -26,7 +26,16 @@ block append body
                     label= "Lieu d'arrivée :"
                     input(type="text", name="villeA", id='villeA', class="form-control")
                     span(class="help-block" style="display: none; color:red;") Le lieu d'arrivée est obligatoire
-                div
+                div(class="form-group offset-lg-2 row")
+                    label Montant Total Péage:
+                    input(type="number", name="montantPeage", value=0, min="0" id='montantPeage' class='form-control')
+                div(class="form-group offset-lg-2 row")
+                    label Montant Total Repas:
+                    input(type="number", name="montantRepas" id="montantRepas", class='form-control' value=0, min="0")
+                div(class="form-group offset-lg-2 row")
+                    label Montant Total Hébergement:
+                    input(type="number", name="montantHebergement" class='form-control' id="montantHebergement", value=0, min="0")
+
                     input(type="text", name="parcourus", id='kiloM' hidden)
                 div
                     input(type="submit", class="btn btn-primary" value="Valider" id="validButton")
@@ -130,31 +139,44 @@ block append body
                                             console.log($('#kiloM').val());
                                         }
                                     }
+                                    let cout = parseFloat().toFixed(2);
+                                    let kiloM = $('#kiloM').val();
+                                    if (kiloM <= 5000)
+                                        cout = kiloM * 0.493;
+                                    else if (kiloM > 5000 && kiloM <= 20000)
+                                        cout = kiloM * 0.277 + 1082;
+                                    else
+                                        cout = kiloM * 0.332;
+
+                                    var fraisInfos = {
+                                        motif: $('#motif').val(),
+                                        cout: cout,
+                                        date: $('#date').val(),
+                                        villeD: $('#villeD').val(),
+                                        villeA: $('#villeA').val(),
+                                        kiloM: $('#kiloM').val(),
+                                        montantHebergement: $('#montantHebergement').val(),
+                                        montantPeage: $('#montantPeage').val(),
+                                        montantRepas: $('#montantRepas').val(),
+
+                                    };
+
+                                    $.ajax({
+                                        url: 'http://localhost:3000/frais',
+                                        method: 'post',
+                                        data: fraisInfos,
+                                        dataType: 'json',
+                                        complete: function (data, status) {
+                                            if (status == 'error') {
+                                                alert("Erreur : un problème est survenu lors de l'enregistrement. Veuillez réessayer ultérieurement ou vérifier vos informations.");
+                                            }
+                                            alert('Votre déclaration de déplacement a été enregistrée avec succès ! ☺');
+                                            location.replace('/');
+                                        }
+                                    });
                                 }
                             }
 
-                            var fraisInfos = {
-                                motif: $('#motif').val(),
-                                date: $('#date').val(),
-                                villeD: $('#villeD').val(),
-                                villeA: $('#villeA').val(),
-                                kiloM: $('#kiloM').val(),
-                            };
-
-                            $.ajax({
-                                url: 'http://localhost:3000/frais/verification',
-                                method: 'post',
-                                data: fraisInfos,
-                                dataType: 'json',
-                                complete: function (xhr, status) {
-                                    if (status == 'error' || !xhr.responseText) {
-                                        alert("Erreur : un problème est survenu lors de l'enregistrement. Veuillez réessayer ultérieurement ou vérifier vos informations.");
-                                    }
-                                    else {
-                                        location.replace('/frais/verification');
-                                    }
-                                }
-                            });
                         });
 
                     });

@@ -34,12 +34,8 @@ const frais_DAO = new Frais_DAO();
     };
 
     exports.fraisIndex = function (req, res) {
-        frais_DAO.getVilles(req.body.villeD, req.body.villeA, function(lesVilles)
-        {
-            frais_DAO.addNewDeplacements(req.body.motif, req.user.id, req.body.date, lesVilles[0],
-                lesVilles[1], req.body.cout, req.body.montantHebergement, req.body.montantRepas,
-                req.body.montantHebergement, (req.body.kiloM));
-            res.redirect('/', {user: req.user})
-        });
-        ;
+        frais_DAO.addNewDeplacements(req.body.motif, req.user.id, req.body.date, req.body.villeD,
+            req.body.villeA, req.body.cout, req.body.montantHebergement, req.body.montantRepas,
+            req.body.montantHebergement, req.body.kiloM);
+        res.redirect('/')
     };

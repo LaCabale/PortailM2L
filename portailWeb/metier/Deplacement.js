@@ -66,11 +66,6 @@ class Deplacement
         return this._cout;
     }
 
-    get kiloM()
-    {
-        return this._kiloM;
-    }
-
     //SETTERS-------------------------------------------------------------
 
     set idAdherent(idAdherent)

@@ -16,8 +16,8 @@ class deplacementDAO {
 
         const query = {
             name: 'récup-déplacements',
-            text: 'select datedeplacement, coutdeplacement, distancekm, fraishebergement, fraisrepas, fraispeage, motif, v1.nom as villeA, v2.nom as villeD ' +
-            'from (deplacement join ville v1 on villedepart = v1.idville) join ville v2 on villearrivee = v2.idville where idadh = ' + userId
+            text: 'select datedeplacement, coutdeplacement, distancekm, fraishebergement, fraisrepas, fraispeage, motif, villedepart, villearrivee ' +
+            'from deplacement where idadh = ' + userId
         };
 
         this._client.query(query, function (err, result) {
@@ -28,7 +28,7 @@ class deplacementDAO {
                 result.rows.forEach(function (row) {
                     let unDeplacement;
 
-                    unDeplacement = new Deplacement(userId, row['motif'], row['datedeplacement'], row['villed'], row['villea'], row['coutdeplacement'], row['distancekm'],
+                    unDeplacement = new Deplacement(userId, row['motif'], row['datedeplacement'], row['villedepart'], row['villearrivee'], row['coutdeplacement'], row['distancekm'],
                         row['fraishebergement'], row['fraisrepas'], row['fraispeage']);
                     lesDeplacements.push(unDeplacement);
                 });
